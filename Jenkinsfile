@@ -1,23 +1,24 @@
 pipeline {
 agent {
 docker {
-image 'maven:3.8.1-adoptopenjdk-11'
-args '-v /root/.m2:/root/.m2'
+image 'maven:3.8.1-adoptopenjdk-11' //1
+args '-v /root/.m2:/root/.m2' //2
 }
 }
 stages {
-stage('Build') {
+stage('Build') { //3
 steps {
-sh 'mvn -B -DskipTests clean package'
+sh 'mvn -B -DskipTests clean package' //4
 }
 }
-stage('Test') { //1
+  stage('Test') {
+10
 steps {
-sh 'mvn test' //2
+sh 'mvn test'
 }
 post {
 always {
-junit 'target/surefire-reports/*.xml' //3
+junit 'target/surefire-reports/*.xml'
 }
 }
 }
